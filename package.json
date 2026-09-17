@@ -1,0 +1,14 @@
+{
+  "name": "incidencia-app",
+  "version": "1.0.0",
+  "description": "proyecto de registro de incidencias",
+  "main": "app.js",
+  "scripts": {
+    "app": "node app.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
