@@ -1,3 +1,4 @@
+
 const incidencias = [];
 
 let siguienteId = 1;
@@ -51,6 +52,54 @@ function registrarIncidencias(req, res) {
     });
 }
 
+function cambiarEstado(req, res) {
+  const id = Number(req.params.id);
+  const { estado } = req.body;
+  const incidencia = incidencias.find(inc => inc.id === id);
+
+  if (!incidencia) {
+    return res.status(404).json({ mensaje: 'Incidencia no encontrada' });
+  }
+
+  switch (estado) {
+    case 'Pendiente':
+    case 'En Proceso':
+    case 'Resuelta':
+    case 'Cancelada':
+      incidencia.estado = estado;
+      res.json({ mensaje: 'Estado actualizado', incidencia });
+      break;
+    default:
+      res.status(400).json({ mensaje: 'Estado inválido' });
+  }
+}
+
+function clasificarIncidencia(req, res) {
+  const id = Number(req.params.id);
+  const incidencia = incidencias.find(inc => inc.id === id);
+
+  if (!incidencia) {
+    return res.status(404).json({ mensaje: 'Incidencia no encontrada' });
+  }
+
+  let clasificacion;
+  switch (incidencia.prioridad) {
+    case 'Alta':
+      clasificacion = 'Crítica';
+      break;
+    case 'Media':
+      clasificacion = 'Importante';
+      break;
+    case 'Baja':
+      clasificacion = 'Normal';
+      break;
+  }
+
+  res.json({ id: incidencia.id, clasificacion });
+}
+
 module.exports = {
-    registrarIncidencias
+    registrarIncidencias,
+    cambiarEstado,
+    clasificarIncidencia
 };
