@@ -51,6 +51,51 @@ function registrarIncidencias(req, res) {
     });
 }
 
+//Listar las incidencias
+function listarIncidencias(req, res){
+    return res.status(200).json(incidencias);
+}
+
+//Buscar incidencias por ID
+function buscarIncidenciaPorId(req, res){
+    const id = Number(req.params.id);
+
+    const incidenciaEncontrada = incidencias.find(
+        incidencia => incidencia.id === id
+    );
+
+    if(!incidenciaEncontrada){
+        return res.status(404).json({
+            error: 'Incidencia no encontrada'
+        });
+    }
+    return res.status(200).json(incidenciaEncontrada);
+}
+
+//Eliminar incidencia
+function eliminarIncidencia(req, res){
+    const id = Number(req.params.id);
+
+    const indice = incidencias.findIndex(
+        incidencia => incidencia.id === id
+    );
+
+    if (indice === -1) {
+        return res.status(404).json({
+            error: 'Incidencia no encontrada'
+        });
+    }
+
+    incidencias.splice(indice, 1);
+
+    return res.status(200).json({
+        message: 'Incidencia eliminada exitosamente'
+    });
+}
+
 module.exports = {
-    registrarIncidencias
+    registrarIncidencias,
+    listarIncidencias,
+    buscarIncidenciaPorId,
+    eliminarIncidencia
 };
