@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    registrarIncidencias
-} = require('../controllers/incidenciasController.js');
+    registrarIncidencias,
+} = require('../controllers/incidenciaController.js');
 
 router.post('/', registrarIncidencias);
 
