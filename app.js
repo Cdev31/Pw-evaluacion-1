@@ -7,10 +7,11 @@ const incidenciaRouter = require('./routes/incidenciaRouter'); // <- AGREGAR EST
 
 //Middleware to parse JSON bodies
 
+app.use('/incidencias', incidenciaRouter);
 
-app.get('/prueba', (req, res) => {
-    res.send('ESTE ES MI SERVIDOR');
-});
+const estadisticasRoutes = require('./routes/estadisticasRouter.js');
+
+app.use('/estadisticas', estadisticasRoutes);
 
 app.use('/incidencias', incidenciaRouter); // <- AGREGAR ESTA LÍNEA
 
