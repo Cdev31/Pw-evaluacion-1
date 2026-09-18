@@ -73,6 +73,39 @@ function cambiarEstado(req, res) {
   }
 }
 
+const obtenerEstadisticas = (req, res) => {
+
+    const mapaEstados = {
+        "Pendiente": "pendientes",
+        "En Proceso": "enProceso",
+        "Resuelta": "resueltas",
+        "Cancelada": "canceladas"
+    };
+
+    const estadisticas = incidencias.reduce((acumulador, incidencia) => {
+
+        acumulador.totalIncidencias++;
+
+        const propiedad = mapaEstados[incidencia.estado];
+
+        if (propiedad) {
+            acumulador[propiedad]++;
+        }
+
+        return acumulador;
+
+    }, {
+        totalIncidencias: 0,
+        pendientes: 0,
+        enProceso: 0,
+        resueltas: 0,
+        canceladas: 0
+    });
+
+    return res.status(200).json(estadisticas);
+};
+
+
 function clasificarIncidencia(req, res) {
   const id = Number(req.params.id);
   const incidencia = incidencias.find(inc => inc.id === id);
@@ -143,5 +176,6 @@ module.exports = {
     clasificarIncidencia,
     listarIncidencias,
     buscarIncidenciaPorId,
-    eliminarIncidencia
+    eliminarIncidencia,
+    obtenerEstadisticas
 }
