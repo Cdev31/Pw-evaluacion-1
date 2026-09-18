@@ -8,7 +8,7 @@ function registrarIncidencias(req, res) {
         empleado,
         area,
         descripcion,
-        prioridad
+        prioridad,
     } = req.body;
 
     //Validacion que todos los campos sean obligatorios
@@ -56,7 +56,6 @@ function cambiarEstado(req, res) {
   const id = Number(req.params.id);
   const { estado } = req.body;
   const incidencia = incidencias.find(inc => inc.id === id);
-
   if (!incidencia) {
     return res.status(404).json({ mensaje: 'Incidencia no encontrada' });
   }
