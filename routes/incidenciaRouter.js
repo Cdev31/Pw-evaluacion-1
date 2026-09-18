@@ -1,16 +1,24 @@
 const express = require('express');
 const router = express.Router();
 
-
 const {
     registrarIncidencias,
-    cambiarEstado,
-    clasificarIncidencia
-} = require('../controllers/incidenciaController.js');
-
+    listarIncidencias,
+    buscarIncidenciaPorId,
+    eliminarIncidencia
+} = require('../controllers/incidenciasController.js');
 
 router.put('/:id/estado', cambiarEstado);
 router.get('/:id/clasificacion', clasificarIncidencia);
 router.post('/', registrarIncidencias);
+
+//Listar incidencia
+router.get('/', listarIncidencias);
+
+//Buscar incidencia por ID
+router.get('/:id', buscarIncidenciaPorId);
+
+//Eliminar incidencia por ID
+router.delete('/:id', eliminarIncidencia);
 
 module.exports = router;
